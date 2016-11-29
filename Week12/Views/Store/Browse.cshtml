@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Browse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var genres = ViewBag.genres;
+    
+}
+
+<h2>Browse</h2>
+
+<h3>Featured Genres</h3>
+
+<ul>
+    @foreach (var genre in genres)
+    {
+        <li>@genre</li>
+    }
+</ul>
+
