@@ -38,21 +38,18 @@ namespace Week12.Controllers
                 // get the selected genre and the related albums
                 var genreData = db.Genres.Include("Albums")
                     .SingleOrDefault(g => g.Name == genre);
-                
-                //if (genreData.Albums == null)
-                //{
-                //    return View("Index");
-                //}
-                //else { 
+
+                if (genreData == null)
+                {
+                    return RedirectToAction("Index"); 
+                    //return View("Index");
+                }
+                else { 
                     // load the view
                     return View(genreData);
-                //}
+                }
             }
-          //}
-          //  catch (Exception e)
-          //  {
 
-          //  }
         }
 
         // GET: /Store/Details
