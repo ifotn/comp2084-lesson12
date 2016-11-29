@@ -11,17 +11,48 @@ namespace Week12.Controllers
         // GET: Store
         public ActionResult Index()
         {
-            return View();
+            // connect to the db
+            using (Models.DefaultConnection db = new Models.DefaultConnection())
+            {
+                // use the Genre model to get all the genres
+                var genres = db.Genres.ToList();
+
+                // create a list sorted by Name and pass that instead of the original list
+                var genresAz = from g in genres
+                               orderby g.Name ascending
+                               select g;
+
+                // load the view and pass it the query results
+                return View(genresAz);
+            }
+
         }
 
         // GET: /Store/Browse
-        public ActionResult Browse()
+        public ActionResult Browse(string genre)
         {
-            // create array of hard-coded genres
-            var genres = new string[] { "Rock", "Jazz", "Metal" };
+            //try { 
+            // connect to the db and query for the right data
+            using (Models.DefaultConnection db = new Models.DefaultConnection())
+            {
+                // get the selected genre and the related albums
+                var genreData = db.Genres.Include("Albums")
+                    .SingleOrDefault(g => g.Name == genre);
+                
+                //if (genreData.Albums == null)
+                //{
+                //    return View("Index");
+                //}
+                //else { 
+                    // load the view
+                    return View(genreData);
+                //}
+            }
+          //}
+          //  catch (Exception e)
+          //  {
 
-            ViewBag.genres = genres;
-            return View();
+          //  }
         }
 
         // GET: /Store/Details

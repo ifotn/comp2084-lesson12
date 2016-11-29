@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<Week12.Models.Genre>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,3 +10,10 @@
 <p>Welcome to the MVC Music Store</p>
 
 @Html.ActionLink("Browse our Store", "Browse", "Store")
+
+<ul>
+    @foreach (var genre in Model)
+    {
+        <li>@Html.ActionLink(genre.Name, "Browse", new { genre = genre.Name })</li>
+    }
+</ul>

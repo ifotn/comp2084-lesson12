@@ -1,20 +1,25 @@
-﻿
+﻿@model Week12.Models.Genre
 @{
     ViewBag.Title = "Browse";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    var genres = ViewBag.genres;
     
 }
 
-<h2>Browse</h2>
+<h2>Browse @Model.Name</h2>
 
-<h3>Featured Genres</h3>
+<h3>Album List - @Model.Albums.Count Records</h3>
 
-<ul>
-    @foreach (var genre in genres)
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+    </tr>
+    @foreach (var album in Model.Albums)
     {
-        <li>@genre</li>
+        <tr>
+            <td>@album.Title</td>
+            <td>@string.Format("{0:c}", album.Price)</td>
+        </tr>
     }
-</ul>
+</table>
 
